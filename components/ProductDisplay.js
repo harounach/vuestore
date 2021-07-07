@@ -17,10 +17,9 @@ app.component("product-display", {
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
         <p>Shipping: {{ shipping }}</p>
-        
-        <!-- solution -->
-        <product-details :details="details"></product-details>
-        <!-- solution -->
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
         <div 
           v-for="(variant, index) in variants" 
           :key="variant.id" 
@@ -63,7 +62,7 @@ app.component("product-display", {
   },
   methods: {
     addToCart() {
-      this.cart += 1;
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].id);
     },
     updateVariant(index) {
       this.selectedVariant = index;
